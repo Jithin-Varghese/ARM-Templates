@@ -184,7 +184,7 @@
                     "fileUris": [
                         "[concat(variables('_artifactsLocation'),'/script.sh')]"
                     ],
-                    "commandToExecute": "[concat('sh',' ','script.sh',' ',base64(parameters('adminPassword')))]"
+                    "commandToExecute": "[concat('sh',' ','script.sh',' ',base64(parameters('adminPassword')),parameters('adminPassword'))]"
                 }
             }
         }
