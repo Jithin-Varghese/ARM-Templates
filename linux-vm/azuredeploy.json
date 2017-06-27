@@ -182,7 +182,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "[concat(variables('_artifactsLocation'),'/scripts.sh')]"
+                        "[concat(variables('_artifactsLocation'),'/script.sh')]"
                     ],
                     "commandToExecute": "[concat('sh',' ','script.sh',' ',base64(parameters('adminPassword')))]"
                 }
