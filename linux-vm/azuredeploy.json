@@ -32,9 +32,6 @@
             "metadata": {
                 "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
             }
-        },
-        "_artifactsLocationSasToken": {
-
         }
     },
     "variables": {
@@ -53,7 +50,8 @@
         "virtualNetworkName": "MyVNET",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
-        "_artifactsLocation": "https://raw.githubusercontent.com/Jithin-Varghese/ARM-Templates/master/linux-vm"
+        "_artifactsLocation": "https://raw.githubusercontent.com/Jithin-Varghese/ARM-Templates/master/linux-vm",
+        "_artifactsLocationSasToken": "sample"
     },
     "resources": [{
             "type": "Microsoft.Storage/storageAccounts",
@@ -171,7 +169,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('VmName'),'/','deployOntapCloud')]",
+            "name": "[concat(variables('vmName'),'/','deployOntapCloud')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "properties": {
