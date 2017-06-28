@@ -1,4 +1,4 @@
-{
+
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -36,6 +36,7 @@
     },
     "variables": {
         "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'salinuxvm')]",
+        "adminpass": "[base64(parameters('adminPassword'))]",
         "imagePublisher": "Canonical",
         "imageOffer": "UbuntuServer",
         "nicName": "myVMNic",
@@ -172,9 +173,9 @@
             "name": "[concat(variables('vmName'),'/','deployOntapCloud')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
-             "dependsOn": [
-                    "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
-                ],
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
+            ],
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
                 "type": "CustomScript",
@@ -184,7 +185,7 @@
                     "fileUris": [
                         "[concat(variables('_artifactsLocation'),'/script.sh')]"
                     ],
-                    "commandToExecute": "[concat('sh',' ','script.sh',' ',parameters('adminPassword'))]"
+                    "commandToExecute": "[concat('sh',' ','script.sh',' ',variables('adminpass'))]"
                 }
             }
         }
@@ -197,6 +198,10 @@
         "sshCommand": {
             "type": "string",
             "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
+        },
+        "base64Output": {
+            "type": "string",
+            "value": "[variables('adminpass')]"
         }
     }
 }
