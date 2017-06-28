@@ -1,4 +1,4 @@
-adminPassword=${1}  
-#echo adminPasswordencoded $adminPasswordencoded >> /tmp/inputlog.txt
-echo `echo $adminPassword | base64 --decode` >> /tmp/inputlog.txt
-
+encodedPassword=${1}  
+#echo adminPasswordencoded $adminPasswordencoded >> /tmp/input
+adminPassword=`echo $encodedPassword| base64 --decode`
+echo $adminPassword >> /tmp/inputlog.txt
